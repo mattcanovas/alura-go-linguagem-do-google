@@ -1,26 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
-	fmt.Println("1 - Iniciar monitoramento")
-	fmt.Println("2 - Exibir logs")
-	fmt.Println("3 - Sair do programa")
-	var comando int
-	fmt.Scanf("%d", &comando)
-
-	fmt.Println("O comando escolhido foi", comando)
-
-	// if comando == 1 {
-	// 	fmt.Println("Monitorando....")
-	// } else if comando == 2 {
-	// 	fmt.Println("Exibindo logs....")
-	// } else if comando == 0 {
-	// 	fmt.Println("Saindo do programa")
-	// } else {
-	// 	fmt.Println("Não conheço este comando")
-	// }
-
+	exibeMenu()
+	comando := leComando()
 	switch comando {
 	case 1:
 		fmt.Println("Monitorando....")
@@ -28,7 +15,22 @@ func main() {
 		fmt.Println("Exibindo logs....")
 	case 3:
 		fmt.Println("Saindo do programa")
+		os.Exit(0)
 	default:
 		fmt.Println("Não conheço este comando")
+		os.Exit(-1)
 	}
+}
+
+func exibeMenu() {
+	fmt.Println("1 - Iniciar monitoramento")
+	fmt.Println("2 - Exibir logs")
+	fmt.Println("3 - Sair do programa")
+}
+
+func leComando() int {
+	var comandoLido int
+	fmt.Scanf("%d", &comandoLido)
+	fmt.Println("O comando escolhido foi", comandoLido)
+	return comandoLido
 }
