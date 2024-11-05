@@ -3,8 +3,10 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -75,10 +77,14 @@ func leSitesDoArquivo() []string {
 		fmt.Println("Ocorreu um erro:", err)
 	}
 	reader := bufio.NewReader(arq)
-	line, err := reader.ReadString('\n')
-	if err != nil {
-		fmt.Println("Ocorreu um erro:", err)
+	for {
+		line, err := reader.ReadString('\n')
+		line = strings.TrimSpace(line)
+		sites = append(sites, line)
+		if err == io.EOF {
+			break
+		}
 	}
-	fmt.Println(line)
+	arq.Close()
 	return sites
 }
