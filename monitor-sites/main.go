@@ -40,11 +40,18 @@ func leComando() int {
 
 func iniciarMonitoramento() {
 	fmt.Println("Monitorando....")
-	var site string = "https://www.alura.com.br"
-	resp, _ := http.Get(site)
-	if resp.StatusCode == 200 {
-		fmt.Println("Site:", site, "foi carregado com sucesso!")
-	} else {
-		fmt.Println("Site:", site, "esta com problemas. Status Code:", resp.StatusCode)
+	var sites []string = []string{"https://random-status-code.herokuapp.com",
+		"https://www.alura.com.br",
+		"https://www.caelum.com.br"}
+	// for i := 0; i < len(sites); i++ {
+
+	// }
+	for _, site := range sites {
+		resp, _ := http.Get(site)
+		if resp.StatusCode == 200 {
+			fmt.Println("Site:", site, "foi carregado com sucesso!")
+		} else {
+			fmt.Println("Site:", site, "esta com problemas. Status Code:", resp.StatusCode)
+		}
 	}
 }
