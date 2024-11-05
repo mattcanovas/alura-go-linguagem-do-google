@@ -47,11 +47,16 @@ func iniciarMonitoramento() {
 
 	// }
 	for _, site := range sites {
-		resp, _ := http.Get(site)
-		if resp.StatusCode == 200 {
-			fmt.Println("Site:", site, "foi carregado com sucesso!")
-		} else {
-			fmt.Println("Site:", site, "esta com problemas. Status Code:", resp.StatusCode)
-		}
+		fmt.Println("Testando site:", site)
+		testaSite(site)
+	}
+}
+
+func testaSite(site string) {
+	resp, _ := http.Get(site)
+	if resp.StatusCode == 200 {
+		fmt.Println("Site:", site, "foi carregado com sucesso!")
+	} else {
+		fmt.Println("Site:", site, "esta com problemas. Status Code:", resp.StatusCode)
 	}
 }
