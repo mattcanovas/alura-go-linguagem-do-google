@@ -7,19 +7,21 @@ import (
 )
 
 func main() {
-	exibeMenu()
-	comando := leComando()
-	switch comando {
-	case 1:
-		iniciarMonitoramento()
-	case 2:
-		fmt.Println("Exibindo logs....")
-	case 3:
-		fmt.Println("Saindo do programa")
-		os.Exit(0)
-	default:
-		fmt.Println("Não conheço este comando")
-		os.Exit(-1)
+	for {
+		exibeMenu()
+		comando := leComando()
+		switch comando {
+		case 1:
+			iniciarMonitoramento()
+		case 2:
+			fmt.Println("Exibindo logs....")
+		case 3:
+			fmt.Println("Saindo do programa")
+			os.Exit(0)
+		default:
+			fmt.Println("Não conheço este comando")
+			os.Exit(-1)
+		}
 	}
 }
 
@@ -31,7 +33,7 @@ func exibeMenu() {
 
 func leComando() int {
 	var comandoLido int
-	fmt.Scanf("%d", &comandoLido)
+	fmt.Scan(&comandoLido)
 	fmt.Println("O comando escolhido foi", comandoLido)
 	return comandoLido
 }
@@ -39,7 +41,10 @@ func leComando() int {
 func iniciarMonitoramento() {
 	fmt.Println("Monitorando....")
 	var site string = "https://www.alura.com.br"
-	// resp, err := http.Get(site)
 	resp, _ := http.Get(site)
-	fmt.Println(resp)
+	if resp.StatusCode == 200 {
+		fmt.Println("Site:", site, "foi carregado com sucesso!")
+	} else {
+		fmt.Println("Site:", site, "esta com problemas. Status Code:", resp.StatusCode)
+	}
 }
